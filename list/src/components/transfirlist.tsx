@@ -15,16 +15,20 @@ export default function Transfirlist() {
 
   const [listmy, setStateList] = useState<ITemType[]>([]);
   const [bgColor, setbgColor] = useState<string>("");
+  const [bgId, setbgID] = useState<number>();
+
   const listIDClick = (newlist: any, id: number) => {
     const itemToUpdate = items.find((item) => item.id === id);
 
     if (itemToUpdate) {
+      console.log(itemToUpdate.id, ":::::::::::::::ID");
+      setbgID(itemToUpdate.id);
       setbgColor("red");
     }
     setStateList((prevListMy) => [...prevListMy, newlist]);
   };
-  
-  const dynamicClass = bgColor === "red" ? "bg-red-900" : "bg-green-900";
+
+  const dynamicClass = "red";
 
   return (
     <div className="flex justify-center gap-5 items-center">
@@ -35,7 +39,9 @@ export default function Transfirlist() {
               return (
                 <div key={item.id}>
                   <button
-                    className={`${dynamicClass} bg-gray-200 w-[90px] py-1  text-[12px] font-semibold text-white m-2 rounded-lg`}
+                    className={`${
+                      bgId === item.id ? "bg-red-900" : ""
+                    } bg-gray-200 w-[90px] py-1  text-[12px] font-semibold text-white m-2 rounded-lg`}
                     onClick={() => listIDClick(item, item.id)}
                   >
                     {item.list}
