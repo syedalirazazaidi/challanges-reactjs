@@ -1,5 +1,4 @@
-import { ListEnd } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface ITemType {
   list: string;
@@ -15,14 +14,17 @@ export default function Transfirlist() {
   ];
 
   const [listmy, setStateList] = useState<ITemType[]>([]);
-  const [color, setColor] = useState("");
-  const listID = (newlist: any) => {
-    setStateList([...listmy, newlist]);
-    // setStateList((prev: any) => {
-    //   return [...prev, newlist];
-    // });
+  const [bgColor, setbgColor] = useState<string>("");
+  const listIDClick = (newlist: any, id: number) => {
+    const itemToUpdate = items.find((item) => item.id === id);
+
+    if (itemToUpdate) {
+      setbgColor("red");
+    }
+    setStateList((prevListMy) => [...prevListMy, newlist]);
   };
-  console.log(listmy);
+  
+  const dynamicClass = bgColor === "red" ? "bg-red-900" : "bg-green-900";
 
   return (
     <div className="flex justify-center gap-5 items-center">
@@ -33,8 +35,8 @@ export default function Transfirlist() {
               return (
                 <div key={item.id}>
                   <button
-                    className="bg-gray-200 w-[90px] text-[12px] font-semibold text-black m-2 rounded-lg"
-                    onClick={() => listID(item)}
+                    className={`${dynamicClass} bg-gray-200 w-[90px] py-1  text-[12px] font-semibold text-white m-2 rounded-lg`}
+                    onClick={() => listIDClick(item, item.id)}
                   >
                     {item.list}
                   </button>
