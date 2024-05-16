@@ -19,15 +19,23 @@ export default function Transfirlist() {
 
   const listIDClick = (newlist: any, id: number) => {
     const itemToUpdate = items.find((item) => item.id === id);
-    console.log(itemToUpdate, ":itemToUpdate");
-
+  
     if (itemToUpdate) {
       setbgID(itemToUpdate.id);
       setbgColor("red");
     }
-    setStateList((prevListMy) => [...prevListMy, newlist]);
+  
+    setStateList((prevListMy) => {
+      const idExists = prevListMy.some((item) => item.id === id);
+     
+      if (!idExists) {
+        return [...prevListMy, newlist];
+      }
+  
+      return prevListMy; 
+    });
   };
-
+  
   return (
     <div className="flex justify-center gap-5 items-center">
       <div className="bg-gray-200/50 rounded-xl w-[148px] h-60">
