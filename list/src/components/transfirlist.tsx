@@ -15,17 +15,40 @@ export default function Transfirlist() {
 
   const [listmy, setStateList] = useState<ITemType[]>([]);
   const [bgColor, setbgColor] = useState<string>("");
-  const [bgId, setbgID] = useState<number>();
+  // const [bgId, setbgID] = useState<number>();
   const [moveLeft, setmoveLeft] = useState(0);
   const [moveRight, setmoveRight] = useState(0);
+  const [bgID, setbgID] = useState<number>();
+  const [selectedIDs, setSelectedIDs] = useState([]);
 
-  const listIDClick = (newlist: any, id: number) => {
-    const itemToUpdate = items.find((item) => item.id === id);
+  // const listIDClick = (newlist: any, id: number) => {
 
-    if (itemToUpdate) {
-      setbgID(itemToUpdate.id);
-      setbgColor("red");
-    }
+  //   const itemToUpdate = items.find((item) => item.id === id);
+  //   console.log(itemToUpdate,"FIND");
+
+  //   if (itemToUpdate) {
+  //     setbgID(itemToUpdate.id);
+  //   }
+
+  //   setStateList((prevListMy) => {
+  //     const idExists = prevListMy.some((item) => item.id === id);
+
+  //     if (!idExists) {
+  //       return [...prevListMy, newlist];
+  //     }
+  //     return prevListMy
+  //   });
+  // };
+  const listIDClick = (newlist: ITemType, id: number) => {
+    setSelectedIDs((prevSelectedIDs: any) => {
+      if (prevSelectedIDs.includes(id)) {
+        return prevSelectedIDs.filter(
+          (selectedID: number) => selectedID !== id
+        );
+      } else {
+        return [...prevSelectedIDs, id];
+      }
+    });
 
     setStateList((prevListMy) => {
       const idExists = prevListMy.some((item) => item.id === id);
@@ -52,8 +75,13 @@ export default function Transfirlist() {
                 <div key={item.id}>
                   <button
                     className={`${
-                      bgId === item.id ? "bg-red-900" : ""
-                    } bg-gray-200 w-[90px] py-1  text-[12px] font-semibold text-white m-2 rounded-lg`}
+                      selectedIDs.includes(item.id)
+                        ? "bg-red-900"
+                        : "bg-gray-200"
+                    } w-[90px] py-1 text-[12px] font-semibold text-white m-2 rounded-lg`}
+                    // className={`${
+                    //   bgID === item.id ? "bg-red-900" : ""
+                    // } bg-gray-200 w-[90px] py-1  text-[12px] font-semibold text-white m-2 rounded-lg`}
                     onClick={() => listIDClick(item, item.id)}
                   >
                     {item.list}
