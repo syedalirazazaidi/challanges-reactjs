@@ -19,8 +19,8 @@ export default function Transfirlist() {
   const [moveLeft, setmoveLeft] = useState(0);
   const [moveRight, setmoveRight] = useState(0);
   const [bgID, setbgID] = useState<number>();
-  const [selectedIDs, setSelectedIDs] = useState([]);
-
+  const [selectedIDs, setSelectedIDs] = useState<any>([]);
+  const [moveLEFT, setmoveLEFT] = useState([])
   // const listIDClick = (newlist: any, id: number) => {
 
   //   const itemToUpdate = items.find((item) => item.id === id);
